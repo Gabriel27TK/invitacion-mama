@@ -3,61 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homenaje Mamá - Rojo Brillante</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Great+Vibes&family=Cinzel:wght@400;700&family=Rajdhani:wght@300;600&display=swap" rel="stylesheet">
+    <title>Homenaje Mamá - Promoción Alenno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        /* Paleta de Rojos Intensos y Brillantes */
         :root {
-            --red-glow: #ff0000;
-            --red-bright: #ff4d4d;
-            --red-dark: #4b0000;
-            --gold: #ffd700;
-            --bg-black: #0a0000;
+            --accent-red: #ff1a1a;
+            --deep-red: #800000;
+            --bright-red: #ff4d4d;
+            --gold: #d4af37;
+            --dark-bg: #080000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-black);
+            background-color: var(--dark-bg);
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Rajdhani', sans-serif;
             overflow: hidden;
-            background-image: radial-gradient(circle at center, #3d0000 0%, #0a0000 100%);
+            perspective: 1500px;
+            background-image: radial-gradient(circle at center, #2b0000 0%, #080000 100%);
         }
 
-        /* Contenedor principal */
-        .container {
+        .wrapper {
             position: relative;
-            width: 100%;
-            max-width: 400px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            width: 100%;
+            height: 100%;
         }
 
-        /* SOBRE ROJO */
-        .envelope {
+        /* SOBRE CON DISEÑO DE ROSA */
+        .envelope-wrapper {
             position: relative;
             width: 320px;
             height: 220px;
-            background: var(--red-dark);
-            border: 2px solid var(--red-glow);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
             cursor: pointer;
+            transition: transform 0.6s ease;
             z-index: 10;
-            transition: transform 0.5s ease;
-            border-radius: 5px;
         }
 
-        .envelope:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 50px var(--red-glow);
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #120000;
+            border: 1px solid rgba(255, 26, 26, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        /* Solapa del sobre */
+        /* ROSA BRILLANTE EN EL SOBRE */
+        .rose-art {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .rose-path {
+            stroke: var(--bright-red);
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawRose 5s ease-in-out infinite alternate, redGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes drawRose { to { stroke-dashoffset: 0; } }
+        @keyframes redGlow {
+            from { filter: drop-shadow(0 0 2px var(--accent-red)); opacity: 0.5; }
+            to { filter: drop-shadow(0 0 15px var(--bright-red)); opacity: 1; }
+        }
+
         .flap {
             position: absolute;
             top: 0;
@@ -65,260 +93,324 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 120px solid #660000;
+            border-top: 120px solid #200000;
             transform-origin: top;
-            transition: transform 0.6s ease;
-            z-index: 15;
-        }
-
-        .is-open .flap {
-            transform: rotateX(180deg);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
             z-index: 5;
         }
 
-        /* Sello de Corazón Brillante */
         .seal {
             position: absolute;
-            top: 85px;
+            top: 90px;
             left: 50%;
             transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle, #ff0000, #990000);
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle, #ff1a1a, #800000);
             border-radius: 50%;
-            z-index: 20;
+            z-index: 6;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 20px var(--red-glow);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 26, 26, 0.6);
+            transition: all 0.4s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .seal span {
             color: white;
-            font-family: 'Cinzel';
-            font-size: 0.7rem;
-            text-align: center;
+            font-family: 'Cinzel', serif;
             font-weight: bold;
+            font-size: 0.8rem;
+            text-shadow: 0 0 5px black;
         }
 
-        .is-open .seal {
-            opacity: 0;
-            transform: translateX(-50%) scale(0);
-        }
-
-        /* LA CARTA QUE SALE */
+        /* LA CARTA - TOQUES ROJOS BRILLANTES */
         .card {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%);
             width: 290px;
-            height: 200px;
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 25px;
+            height: 190px;
+            background: linear-gradient(135deg, #1a0000 0%, #050000 100%);
+            border: 2px solid var(--accent-red);
+            border-radius: 15px;
             z-index: 1;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-            text-align: center;
-            border: 4px solid var(--red-glow);
-            box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2);
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            opacity: 0;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3), inset 0 0 20px rgba(255, 0, 0, 0.2);
+            overflow: hidden;
         }
 
-        .is-open .card {
-            transform: translate(-50%, -50%) scale(1);
-            height: 600px;
-            width: 360px;
-            opacity: 1;
-            z-index: 30;
+        /* Fondo de rosa sutil dentro de la carta */
+        .card::before {
+            content: '❤';
+            position: absolute;
+            font-size: 25rem;
+            color: rgba(255, 0, 0, 0.05);
             top: 50%;
-            background: linear-gradient(to bottom, #ffffff 0%, #ffebeb 100%);
-        }
-
-        /* Estilos Internos de la Carta */
-        .logos {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .logo {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2));
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: #d00000;
-            margin: 10px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .details {
-            margin: 20px 0;
-            color: #333;
-        }
-
-        .details p {
-            font-size: 1.1rem;
-            margin: 10px 0;
-            font-weight: 600;
-        }
-
-        .red-text {
-            color: #ff0000;
-            font-family: 'Orbitron';
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .divider {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff0000, transparent);
-            margin: 15px 0;
-        }
-
-        .footer {
-            font-family: 'Cinzel';
-            font-size: 0.8rem;
-            color: #660000;
-            font-weight: bold;
-        }
-
-        /* Partículas de Brillo */
-        #canvas-sparks {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
         }
 
-        .tap-hint {
-            margin-top: 20px;
-            color: var(--red-bright);
-            font-family: 'Orbitron';
-            font-size: 0.7rem;
+        .envelope-wrapper.is-open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.is-open .seal { opacity: 0; transform: translateX(-50%) scale(0); }
+        .envelope-wrapper.is-open .rose-art { opacity: 0; }
+        
+        .envelope-wrapper.is-open .card {
+            transform: translate(-50%, -50%) scale(1.05);
+            height: 640px;
+            width: 370px;
+            opacity: 1;
+            z-index: 25;
+            border-color: var(--bright-red);
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6), 0 0 100px rgba(255, 0, 0, 0.2);
+        }
+
+        .card-content {
+            opacity: 0;
+            transition: opacity 0.6s ease 0.8s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .envelope-wrapper.is-open .card-content { opacity: 1; }
+
+        .logos-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-box {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 26, 26, 0.4));
+        }
+
+        .card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            color: #fff;
+            text-shadow: 0 0 10px var(--bright-red), 0 0 20px var(--accent-red);
+            margin-bottom: 5px;
+        }
+
+        .invitation-text {
+            color: #ffcccc;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .divider {
+            height: 2px;
+            width: 60%;
+            background: linear-gradient(90deg, transparent, var(--bright-red), transparent);
+            margin: 10px auto;
+        }
+
+        .footer-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
             letter-spacing: 2px;
-            animation: pulse 1.5s infinite;
+            color: var(--gold);
+            margin-top: 20px;
+            opacity: 0.8;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; transform: scale(1.1); }
+        .hint {
+            position: absolute;
+            bottom: -80px;
+            width: 100%;
+            text-align: center;
+            color: var(--bright-red);
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            animation: pulseHint 2s infinite;
         }
 
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 10px var(--bright-red); }
+        }
+
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+
+        /* Destellos rojos adicionales */
+        .sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--bright-red);
+            animation: floatSparkle 4s linear infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas-sparks"></canvas>
+    <canvas id="particles"></canvas>
 
-    <div class="container">
-        <div class="envelope" id="main-envelope" onclick="toggleLetter()">
-            <div class="flap"></div>
-            <div class="seal">CON AMOR</div>
+    <div class="wrapper">
+        <div class="envelope-wrapper" id="envelope" onclick="toggleEnvelope()">
             
-            <div class="card">
-                <div class="logos">
-                    <img src="image_cec3ef.png" alt="Colegio" class="logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/715/71500.png'">
-                    <img src="image_cec3b1.png" alt="Promo" class="logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/714/71497.png'">
-                </div>
-                
-                <div>
-                    <p class="red-text">PROMOCIÓN ALENNO 2026</p>
-                    <h1>Feliz día Mamá</h1>
+            <!-- Rosa Brillante Animada -->
+            <svg class="rose-art" viewBox="0 0 100 100">
+                <path class="rose-path" d="M50,85 C50,85 10,70 10,40 C10,10 50,5 50,30 C50,5 90,10 90,40 C90,70 50,85 50,85 Z M50,30 C45,20 30,20 30,35 C30,50 50,65 50,65 M50,30 C55,20 70,20 70,35 C70,50 50,65 50,65 M50,45 L50,85" />
+                <path class="rose-path" style="animation-delay: 0.5s; opacity: 0.6;" d="M50,35 Q35,45 20,40 Q15,60 40,75" />
+                <path class="rose-path" style="animation-delay: 1s; opacity: 0.6;" d="M50,35 Q65,45 80,40 Q85,60 60,75" />
+            </svg>
+
+            <div class="flap"></div>
+            <div class="seal"><span>MAMÁ</span></div>
+            <div class="envelope-back"></div>
+            
+            <div class="card" id="card">
+                <div class="card-content">
+                    <div class="logos-row">
+                        <img src="image_cec3ef.png" alt="Logo Colegio" class="logo-box" onerror="this.src='71500.png'">
+                        <img src="image_cec3b1.png" alt="Logo Promo" class="logo-box" onerror="this.src='71497.png'">
+                    </div>
+
+                    <div class="label" style="color: white; opacity: 0.7;">Homenaje Especial</div>
+                    <h2>Feliz día Mamá</h2>
+                    
                     <div class="divider"></div>
-                    <p style="font-style: italic; color: #555; margin-bottom: 10px;">
-                        "Porque tu amor es el brillo que guía nuestro camino."
+
+                    <p class="invitation-text">
+                        "El amor de una madre es el combustible que permite a un ser humano normal hacer lo imposible."
                     </p>
-                </div>
 
-                <div class="details">
-                    <p class="red-text">LUGAR</p>
-                    <p>SALÓN 5TO A - I.E. 7220</p>
-                    <div class="divider" style="width: 40%; margin: 10px auto;"></div>
-                    <p class="red-text">FECHA Y HORA</p>
-                    <p style="font-size: 1.4rem; color: #d00000;">08 MAYO | 4:30 PM</p>
-                </div>
+                    <div style="margin-top: 10px;">
+                        <p class="label">Lugar de Honor</p>
+                        <p class="value">SALÓN 5TO A — I.E. 7220</p>
+                    </div>
 
-                <div class="footer">
-                    TE ESPERAMOS CON EL CORAZÓN ABIERTO
+                    <div>
+                        <p class="label">Momento Mágico</p>
+                        <p class="value" style="color: var(--bright-red);">08 DE MAYO // 4:30 PM</p>
+                    </div>
+
+                    <div class="divider" style="width: 40%; opacity: 0.5;"></div>
+
+                    <div class="footer-text">CON TODO NUESTRO AMOR: PROMO ALENNO</div>
                 </div>
             </div>
+
+            <div class="hint" id="hint">TOCA PARA ABRIR EL CORAZÓN</div>
         </div>
-        
-        <div class="tap-hint" id="hint">TOCA EL SOBRE PARA ABRIR</div>
     </div>
 
     <script>
-        function toggleLetter() {
-            const envelope = document.getElementById('main-envelope');
+        function toggleEnvelope() {
+            const env = document.getElementById('envelope');
             const hint = document.getElementById('hint');
-            envelope.classList.toggle('is-open');
+            env.classList.toggle('is-open');
             
-            if(envelope.classList.contains('is-open')) {
-                hint.style.display = 'none';
-                startSparkles();
+            if(env.classList.contains('is-open')) {
+                hint.style.opacity = '0';
+                createSparkles();
             } else {
-                hint.style.display = 'block';
+                hint.style.opacity = '1';
             }
         }
 
-        // Sistema de partículas rojas y doradas
-        const canvas = document.getElementById('canvas-sparks');
+        function createSparkles() {
+            const card = document.getElementById('card');
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const s = document.createElement('div');
+                    s.className = 'sparkle';
+                    s.style.left = Math.random() * 100 + '%';
+                    s.style.top = Math.random() * 100 + '%';
+                    s.style.width = Math.random() * 4 + 2 + 'px';
+                    s.style.height = s.style.width;
+                    s.style.animationDelay = Math.random() * 2 + 's';
+                    card.appendChild(s);
+                    setTimeout(() => s.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
-        function initCanvas() {
+        function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        }
-
-        function createParticle() {
-            return {
-                x: Math.random() * canvas.width,
-                y: canvas.height + 10,
-                size: Math.random() * 3 + 1,
-                speed: Math.random() * 2 + 0.5,
-                color: Math.random() > 0.3 ? '#ff0000' : '#ffd700',
-                opacity: Math.random()
-            };
-        }
-
-        function startSparkles() {
-            for(let i=0; i<50; i++) {
-                particles.push(createParticle());
+            particles = [];
+            for(let i=0; i<70; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5 + 0.5,
+                    v: Math.random() * 0.4 + 0.1,
+                    o: Math.random(),
+                    c: Math.random() > 0.5 ? '#ff1a1a' : '#d4af37'
+                });
             }
         }
 
-        function animate() {
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.y -= p.speed;
-                p.opacity -= 0.005;
-                
+            particles.forEach(p => {
+                ctx.fillStyle = p.c;
+                ctx.globalAlpha = p.o;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.opacity;
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
                 ctx.fill();
-
-                if(p.opacity <= 0) {
-                    particles[index] = createParticle();
-                }
+                p.y -= p.v;
+                if(p.y < -10) p.y = canvas.height + 10;
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(draw);
         }
 
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        animate();
+        window.addEventListener('resize', init);
+        init();
+        draw();
     </script>
 </body>
 </html>
