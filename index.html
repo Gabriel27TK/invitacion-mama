@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homenaje a Mamá - Alenno 26</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Invitación Real - Homenaje Mamá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --accent-red: #e60000;
+            --dark-red: #800000;
             --gold: #d4af37;
-            --deep-red: #b31b1b;
             --dark-bg: #050505;
-            --card-white: #fffdf5;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,288 +19,382 @@
         body {
             background-color: var(--dark-bg);
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             overflow: hidden;
-            perspective: 2000px;
+            perspective: 1500px;
+            background-image: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
         }
 
-        /* Fondo Estrellado Animado */
-        .stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            z-index: -1;
-        }
-
-        /* Escena del Globo */
-        .scene {
+        .wrapper {
             position: relative;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            height: 100%;
         }
 
-        .balloon-container {
+        /* ESCENA DEL SOBRE */
+        .envelope-wrapper {
             position: relative;
+            width: 320px;
+            height: 220px;
             cursor: pointer;
-            animation: float 4s ease-in-out infinite;
+            transition: transform 0.6s ease;
             z-index: 10;
-            transition: all 0.8s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        /* El Globo de Corazón */
-        .heart-balloon {
-            width: 100px;
-            height: 90px;
-            background: var(--deep-red);
-            position: relative;
-            transform: rotate(-45deg);
-            box-shadow: -10px 10px 30px rgba(179, 27, 27, 0.5);
+        /* DISEÑO DE ROSA BRILLANTE */
+        .rose-art {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            opacity: 0.6;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .rose-path {
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawRose 5s ease-in-out infinite alternate, glow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 5px var(--gold));
+        }
+
+        @keyframes drawRose {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 2px var(--gold)); opacity: 0.4; }
+            to { filter: drop-shadow(0 0 12px var(--gold)); opacity: 0.9; }
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #1a1a1a;
+            transform-origin: top;
+            transition: transform 0.5s ease 0.3s;
+            z-index: 5;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+        }
+
+        .seal {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
+            border-radius: 50%;
+            z-index: 6;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: opacity 0.3s ease;
+            border: 2px solid rgba(0,0,0,0.1);
         }
 
-        .heart-balloon::before, .heart-balloon::after {
-            content: "";
-            width: 100px;
-            height: 100px;
-            background: var(--deep-red);
-            border-radius: 50%;
+        .seal span {
+            color: #000;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* LA CARTA */
+        .card {
             position: absolute;
-        }
-
-        .heart-balloon::before { top: -50px; left: 0; }
-        .heart-balloon::after { top: 0; left: 50px; }
-
-        .balloon-string {
-            width: 2px;
-            height: 120px;
-            background: linear-gradient(to bottom, var(--deep-red), var(--gold));
-            margin-top: 40px;
-            position: relative;
-            left: 0;
-            transform: rotate(45deg); /* Compensa la rotación del corazón */
-        }
-
-        /* La Invitación (Cuelga del globo) */
-        .invitation-card {
-            width: 280px;
-            height: 180px;
-            background: var(--card-white);
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transform: translateY(-20px);
-            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 290px;
+            height: 190px;
+            background: rgba(10, 0, 0, 0.98);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--accent-red);
+            border-radius: 15px;
+            z-index: 1;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            padding: 20px;
             text-align: center;
-            opacity: 0.9;
-        }
-
-        .card-inner-content {
             opacity: 0;
-            transition: opacity 0.5s ease 0.8s;
-            width: 100%;
+            box-shadow: 0 0 50px rgba(230, 0, 0, 0.4);
         }
 
-        /* ESTADO: AL PRESIONAR (WOW EFFECT) */
-        .is-released .balloon-container {
-            transform: translateY(-150vh) scale(1.5);
+        .envelope-wrapper.is-open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.is-open .seal {
             opacity: 0;
-            filter: blur(10px);
+            pointer-events: none;
         }
 
-        .is-released .invitation-card {
-            transform: translateY(0) scale(1.3);
+        .envelope-wrapper.is-open .rose-art {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .envelope-wrapper.is-open .card {
+            transform: translate(-50%, -50%) scale(1.1);
+            height: 620px;
             width: 360px;
-            height: 540px;
             opacity: 1;
-            z-index: 50;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            z-index: 25;
         }
 
-        .is-released .card-inner-content {
-            opacity: 1;
-        }
-
-        /* Diseño de la Invitación Expandida */
-        .logo-header {
+        .card-content {
+            opacity: 0;
+            transition: opacity 0.5s ease 0.6s;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 12px;
             width: 100%;
-            margin-bottom: 20px;
         }
 
-        .logo-header img {
-            width: 70px;
-            height: 70px;
+        .envelope-wrapper.is-open .card-content {
+            opacity: 1;
+        }
+
+        .logos-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .logo-box {
+            width: 75px;
+            height: 75px;
             object-fit: contain;
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
         }
 
-        .main-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: var(--deep-red);
-            margin: 10px 0;
+        .card h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.1rem;
+            color: white;
+            background: linear-gradient(to bottom, #fff, #ff9999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
         }
 
-        .promo-tag {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .info-box {
-            border: 1px solid var(--gold);
-            padding: 15px;
-            margin: 20px 0;
-            background: rgba(212, 175, 55, 0.05);
-            width: 100%;
-        }
-
-        .info-box p {
+        .invitation-text {
+            color: #ccc;
             font-size: 0.9rem;
-            margin: 8px 0;
-            color: #333;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            font-weight: 300;
         }
 
-        .footer-quote {
-            font-style: italic;
-            font-size: 0.8rem;
-            color: #777;
-            margin-top: auto;
+        .label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.55rem;
+            color: var(--accent-red);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+        }
+
+        .value {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .divider {
+            height: 1px;
+            width: 80%;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 5px auto;
+        }
+
+        .footer-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 15px;
         }
 
         .hint {
             position: absolute;
-            bottom: -60px;
-            color: white;
+            bottom: -70px;
+            width: 100%;
+            text-align: center;
+            color: var(--gold);
             font-family: 'Orbitron';
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
-            animation: pulse 2s infinite;
+            animation: pulseHint 2s infinite;
         }
 
-        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-5px); }
+        }
 
-        /* Ajustes Móviles */
-        @media (max-width: 480px) {
-            .is-released .invitation-card {
-                width: 90vw;
-                height: 80vh;
-                transform: translateY(0) scale(1.1);
+        @media (max-width: 400px) {
+            .envelope-wrapper { width: 300px; height: 200px; }
+            .flap { border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 110px solid #1a1a1a; }
+            .envelope-wrapper.is-open .card { 
+                width: 94vw; 
+                height: 88vh;
+                max-height: 640px;
             }
+            .card h2 { font-size: 1.8rem; }
+            .logo-box { width: 65px; height: 65px; }
+        }
+
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
-    <div class="stars"></div>
+    <canvas id="particles"></canvas>
 
-    <div class="scene" id="mainScene">
-        <!-- El Globo -->
-        <div class="balloon-container" onclick="releaseBalloon()">
-            <div class="heart-balloon"></div>
-            <div class="balloon-string"></div>
-        </div>
+    <div class="wrapper">
+        <div class="envelope-wrapper" id="envelope" onclick="toggleEnvelope()">
+            
+            <!-- Arte de Rosa Minimalista Brillante -->
+            <svg class="rose-art" viewBox="0 0 100 100">
+                <path class="rose-path" d="M50,85 C50,85 10,70 10,40 C10,10 50,5 50,30 C50,5 90,10 90,40 C90,70 50,85 50,85 Z M50,30 C45,20 30,20 30,35 C30,50 50,65 50,65 M50,30 C55,20 70,20 70,35 C70,50 50,65 50,65 M50,45 L50,85" />
+                <!-- Líneas suaves adicionales de la rosa -->
+                <path class="rose-path" style="animation-delay: 0.5s" d="M50,35 Q35,45 20,40 Q15,60 40,75" />
+                <path class="rose-path" style="animation-delay: 1s" d="M50,35 Q65,45 80,40 Q85,60 60,75" />
+            </svg>
 
-        <!-- La Invitación -->
-        <div class="invitation-card" id="card">
-            <!-- Este contenido solo se ve al abrir -->
-            <div class="card-inner-content">
-                <div class="logo-header">
-                    <!-- LOGOS PNG - Se buscan en la misma carpeta de GitHub -->
-                    <img src="71500.png" alt="I.E. 7220 Logo" onerror="this.style.display='none'">
-                    <img src="71497.png" alt="Promo Alenno Logo" onerror="this.style.display='none'">
+            <div class="flap"></div>
+            <div class="seal"><span>ALENNO</span></div>
+            <div class="envelope-back"></div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="logos-row">
+                        <img src="71500.png" alt="Logo Colegio" class="logo-box" onerror="this.src='71500.jpg'; this.onerror=null;">
+                        <img src="71497.png" alt="Logo Promo" class="logo-box" onerror="this.src='71497.jpg'; this.onerror=null;">
+                    </div>
+
+                    <div class="label">Homenaje Alenno</div>
+                    <h2>FELIZ DÍA MAMÁ</h2>
+                    
+                    <div class="divider"></div>
+
+                    <p class="invitation-text">
+                        Nos es sumamente grato invitarles a compartir una tarde llena de alegría y reconocimiento por su labor incansable y amor incondicional.
+                    </p>
+
+                    <div>
+                        <p class="label">Ubicación</p>
+                        <p class="value">SALÓN 5TO A — I.E. 7220</p>
+                    </div>
+
+                    <div>
+                        <p class="label">Fecha y Hora</p>
+                        <p class="value">08 MAYO // 4:30 PM - 4:55 PM</p>
+                    </div>
+
+                    <div>
+                        <p class="label">Misión</p>
+                        <p class="value" style="color: var(--gold);">CELEBRAR TU LUZ</p>
+                    </div>
+
+                    <div class="footer-text">PROMO ALENNO // GENERACIÓN 26</div>
                 </div>
-
-                <div style="font-family: 'Orbitron'; font-size: 0.7rem; color: #666; margin-bottom: 5px;">I.E. 7220 VMT</div>
-                <h1 class="main-title">Homenaje a Mamá</h1>
-                <div class="promo-tag">PROMO ALENNO 2026</div>
-
-                <p style="font-size: 0.9rem; color: #444; line-height: 1.6;">
-                    "Tu amor es el motor que nos permite lograr lo imposible."
-                    <br><br>
-                    Tenemos el honor de invitarla a una tarde de gala inolvidable.
-                </p>
-
-                <div class="info-box">
-                    <p>📅 <b>FECHA:</b> Viernes 8 de Mayo</p>
-                    <p>🕒 <b>HORA:</b> 4:30 PM - 4:55 PM</p>
-                    <p>📍 <b>LUGAR:</b> Salón 5to A</p>
-                </div>
-
-                <p class="footer-quote">"Aunque lejos estemos, nunca nos olvidaremos"</p>
-                <div style="color: var(--gold); font-weight: bold; font-size: 0.8rem; margin-top: 10px;">GENERACIÓN ALENNO '26</div>
             </div>
 
-            <!-- Texto visible antes de abrir -->
-            <div id="pre-open-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;">
-                <p style="font-family: 'Great Vibes'; font-size: 1.5rem; color: var(--gold);">Para la reina del hogar...</p>
-            </div>
+            <div class="hint" id="hint">TOCA PARA REVELAR</div>
         </div>
-
-        <div class="hint" id="hint">TOCA EL GLOBO PARA SOLTAR</div>
     </div>
 
     <script>
-        function releaseBalloon() {
-            const scene = document.getElementById('mainScene');
-            const preText = document.getElementById('pre-open-text');
+        function toggleEnvelope() {
+            const env = document.getElementById('envelope');
             const hint = document.getElementById('hint');
+            env.classList.toggle('is-open');
             
-            // Iniciar animación WOW
-            scene.classList.add('is-released');
-            preText.style.opacity = '0';
-            hint.style.opacity = '0';
-
-            // Crear efecto de partículas (corazones pequeños) al soltar
-            for(let i=0; i<15; i++) {
-                createSparkle();
+            if(env.classList.contains('is-open')) {
+                hint.style.opacity = '0';
+            } else {
+                hint.style.opacity = '1';
             }
         }
 
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.innerHTML = '❤';
-            sparkle.style.position = 'fixed';
-            sparkle.style.left = '50%';
-            sparkle.style.top = '40%';
-            sparkle.style.color = 'var(--gold)';
-            sparkle.style.pointerEvents = 'none';
-            sparkle.style.zIndex = '100';
-            
-            const destinationX = (Math.random() - 0.5) * 500;
-            const destinationY = (Math.random() - 0.5) * 500;
-            
-            document.body.appendChild(sparkle);
-            
-            sparkle.animate([
-                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                { transform: `translate(${destinationX}px, ${destinationY}px) scale(0)`, opacity: 0 }
-            ], {
-                duration: 1000 + Math.random() * 1000,
-                easing: 'cubic-bezier(0, .9, .57, 1)'
-            }).onfinish = () => sparkle.remove();
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 2,
+                    v: Math.random() * 0.5 + 0.2,
+                    o: Math.random()
+                });
+            }
         }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.fillStyle = `rgba(212, 175, 55, ${p.o})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fill();
+                p.y -= p.v;
+                if(p.y < -10) p.y = canvas.height + 10;
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        draw();
     </script>
 </body>
 </html>
