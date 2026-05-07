@@ -27,6 +27,7 @@
             perspective: 2000px;
         }
 
+        /* Animación de Corazones */
         .hearts-bg {
             position: fixed;
             width: 100%;
@@ -55,7 +56,7 @@
 
         .header-section h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 12vw, 5rem);
+            font-size: clamp(3rem, 10vw, 5rem);
             color: var(--gold-accent);
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
@@ -68,6 +69,7 @@
             opacity: 0.7;
         }
 
+        /* Sobre */
         .envelope-container {
             position: relative;
             width: 320px;
@@ -118,7 +120,6 @@
             background: var(--red-ribbon);
             border-radius: 50% 50% 0 50%;
             transform: rotate(45deg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .ribbon-bow::after {
@@ -127,6 +128,7 @@
             transform: rotate(-45deg);
         }
 
+        /* Interior de la Invitación */
         .invitation-inner {
             position: absolute;
             top: 5px;
@@ -141,16 +143,6 @@
             display: flex;
             flex-direction: column;
             border: 1px solid #ccc;
-        }
-
-        .envelope-container.is-open .ribbon-strip {
-            transform: translateX(-50%) translateY(-150%);
-            opacity: 0;
-        }
-
-        .envelope-container.is-open .ribbon-bow {
-            transform: translate(-50%, -200%) scale(0);
-            opacity: 0;
         }
 
         .envelope-container.is-open .invitation-inner {
@@ -178,6 +170,7 @@
 
         .envelope-container.is-open .letter-content { opacity: 1; }
 
+        /* Logos con nombres exactos de tu GitHub */
         .logo-row {
             display: flex;
             justify-content: space-between;
@@ -199,10 +192,9 @@
             object-fit: contain;
         }
 
-        .school-header { font-family: 'Orbitron'; font-size: 0.75rem; color: #444; letter-spacing: 1px; font-weight: bold; }
+        .school-header { font-family: 'Orbitron'; font-size: 0.7rem; color: #444; letter-spacing: 1px; font-weight: bold; }
         .main-title { font-family: 'Great Vibes'; font-size: 2.8rem; color: var(--red-ribbon); margin: 5px 0; }
-        .invite-msg { font-size: 0.85rem; line-height: 1.5; margin: 10px 0; }
-
+        
         .event-info {
             background: #fff9e6;
             border: 1px dashed var(--gold-accent);
@@ -215,9 +207,6 @@
         .info-row { margin: 6px 0; }
         .info-row b { color: var(--red-ribbon); }
 
-        .footer-quote { font-style: italic; font-size: 0.75rem; color: #777; margin-top: 10px; }
-        .promo-name { font-family: 'Orbitron'; font-weight: bold; color: var(--gold-accent); font-size: 0.8rem; margin-top: 5px; }
-
         .click-hint {
             margin-top: 40px;
             color: var(--gold-accent);
@@ -228,6 +217,9 @@
         }
 
         @keyframes pulseHint { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        .envelope-container.is-open .ribbon-strip { transform: translateX(-50%) translateY(-150%); opacity: 0; }
+        .envelope-container.is-open .ribbon-bow { transform: translate(-50%, -200%) scale(0); opacity: 0; }
 
         @media (max-width: 400px) {
             .envelope-container.is-open .invitation-inner {
@@ -255,20 +247,20 @@
             <div class="letter-content">
                 <div class="logo-row">
                     <div class="logo-box">
-                        <!-- Logo Colegio I.E. 7220 -->
-                        <img src="https://i.ibb.co/Lh2P8D6/71500.jpg" alt="Logo Colegio">
+                        <!-- Logo Colegio -->
+                        <img src="71500.jpg.png" alt="Logo Institucional">
                     </div>
                     <div class="logo-box">
-                        <!-- Logo Promo Alenno -->
-                        <img src="https://i.ibb.co/D8mX0Gz/71497.jpg" alt="Logo Promo">
+                        <!-- Logo Promo -->
+                        <img src="71497.jpg.png" alt="Logo Promo">
                     </div>
                 </div>
 
-                <div class="school-header">I.E. 7220 VMT</div>
+                <div class="school-header">I.E. 7220 VMT EL PARAÍSO</div>
                 <h2 class="main-title">Homenaje a Mamá</h2>
                 
-                <p class="invite-msg">
-                    La <b>Promoción ALENNO</b> tiene el honor de invitarla a una tarde de gala y gratitud, celebrando el amor más puro del mundo: el suyo.
+                <p style="font-size: 0.85rem; line-height: 1.5; margin: 10px 0;">
+                    La <b>Promoción ALENNO</b> invita cordialmente a las madres de familia a una tarde llena de amor, sorpresas y alegría inmensa.
                 </p>
 
                 <div class="event-info">
@@ -277,8 +269,8 @@
                     <div class="info-row">📍 <b>LUGAR:</b> Aula 5to A</div>
                 </div>
 
-                <p class="footer-quote">"El amor de una madre es el motor que nos impulsa"</p>
-                <div class="promo-name">PROMO ALENNO '26</div>
+                <p style="font-style: italic; font-size: 0.75rem; color: #777; margin-top: 10px;">"Madre, tu amor es el sol de nuestros días"</p>
+                <div style="font-family: 'Orbitron'; font-weight: bold; color: var(--gold-accent); font-size: 0.8rem; margin-top: 5px;">PROMO ALENNO '26</div>
             </div>
         </div>
     </div>
