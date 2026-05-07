@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día Mamá - Alenno 26</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red-ribbon: #c0392b;
+            --gold-accent: #d4af37;
+            --dark-space: #080808;
+            --paper-white: #fdfdfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--dark-space);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        /* Lluvia de Corazones */
+        .hearts-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: rgba(192, 57, 43, 0.4);
+            animation: moveHearts 5s linear infinite;
+        }
+
+        @keyframes moveHearts {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Portada Elegante */
+        .header-section {
+            text-align: center;
+            z-index: 5;
+            margin-bottom: 30px;
+            transition: 0.5s;
+        }
+
+        .header-section h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 12vw, 5rem);
+            color: var(--gold-accent);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .header-section p {
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        /* Sistema del Sobre */
+        .envelope-container {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .envelope-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            border: 2px solid var(--gold-accent);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            z-index: 2;
+        }
+
+        /* Lazo Rojo Vertical */
+        .ribbon-strip {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 100%;
+            background: var(--red-ribbon);
+            z-index: 3;
+            transition: transform 0.8s cubic-bezier(0.6, -0.2, 0.1, 1.2), opacity 0.5s;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        .ribbon-bow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 45px;
+            z-index: 4;
+            transition: 0.5s;
+        }
+
+        .ribbon-bow::before, .ribbon-bow::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--red-ribbon);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .ribbon-bow::after {
+            left: 40px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+        }
+
+        /* Carta de Invitación */
+        .invitation-inner {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 190px;
+            background: var(--paper-white);
+            z-index: 1;
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+        }
+
+        /* Apertura */
+        .envelope-container.is-open .ribbon-strip {
+            transform: translateX(-50%) translateY(-150%);
+            opacity: 0;
+        }
+
+        .envelope-container.is-open .ribbon-bow {
+            transform: translate(-50%, -200%) scale(0);
+            opacity: 0;
+        }
+
+        .envelope-container.is-open .invitation-inner {
+            transform: translateX(-50%) translateY(-380px);
+            height: 600px;
+            width: 350px;
+            z-index: 20;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            padding: 25px 20px;
+        }
+
+        /* Contenido de la Carta */
+        .letter-content {
+            opacity: 0;
+            transition: opacity 0.5s ease 0.7s;
+            height: 100%;
+            border: 2px solid var(--gold-accent);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            color: #222;
+        }
+
+        .envelope-container.is-open .letter-content { opacity: 1; }
+
+        .logo-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .logo-box {
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .school-header { font-family: 'Orbitron'; font-size: 0.7rem; color: #666; letter-spacing: 2px; }
+        .main-title { font-family: 'Great Vibes'; font-size: 2.8rem; color: var(--red-ribbon); margin: 5px 0; }
+        .invite-msg { font-size: 0.8rem; line-height: 1.5; margin: 10px 0; }
+
+        .event-info {
+            background: #fff9e6;
+            border: 1px dashed var(--gold-accent);
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        .info-row { margin: 5px 0; }
+        .info-row b { color: var(--red-ribbon); }
+
+        .footer-quote { font-style: italic; font-size: 0.75rem; color: #888; margin-top: 10px; }
+        .promo-name { font-family: 'Orbitron'; font-weight: bold; color: var(--gold-accent); font-size: 0.8rem; margin-top: 5px; }
+
+        .click-hint {
+            margin-top: 40px;
+            color: var(--gold-accent);
+            font-family: 'Orbitron';
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            animation: pulseHint 2s infinite;
+        }
+
+        @keyframes pulseHint { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* Ajuste Celulares */
+        @media (max-width: 400px) {
+            .envelope-container.is-open .invitation-inner {
+                width: 90vw;
+                transform: translateX(-50%) translateY(-330px);
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-bg" id="hearts-layer"></div>
+
+    <div class="header-section" id="title-text">
+        <h1>Feliz Día Mamá</h1>
+        <p>PROMOCIÓN ALENNO 2026</p>
+    </div>
+
+    <div class="envelope-container" onclick="openInvite()">
+        <div class="ribbon-strip"></div>
+        <div class="ribbon-bow"></div>
+        <div class="envelope-base"></div>
+        
+        <div class="invitation-inner">
+            <div class="letter-content">
+                <div class="logo-row">
+                    <div class="logo-box">
+                        <!-- Logo I.E. 7220 -->
+                        <img src="https://i.ibb.co/Lh2P8D6/71500.jpg" alt="Logo Colegio">
+                    </div>
+                    <div class="logo-box">
+                        <!-- Logo Promo ALENNO -->
+                        <img src="https://i.ibb.co/D8mX0Gz/71497.jpg" alt="Logo Promo">
+                    </div>
+                </div>
+
+                <div class="school-header">I.E. 7220 VMT</div>
+                <h2 class="main-title">Homenaje a Mamá</h2>
+                
+                <p class="invite-msg">
+                    La <b>Promoción ALENNO</b> tiene el inmenso placer de invitarla a una tarde mágica de elegancia y reconocimiento por su amor infinito.
+                </p>
+
+                <div class="event-info">
+                    <div class="info-row">📅 <b>DÍA:</b> Viernes 8 de Mayo</div>
+                    <div class="info-row">🕒 <b>HORA:</b> 4:30 PM - 4:55 PM</div>
+                    <div class="info-row">📍 <b>LUGAR:</b> Salón 5to A</div>
+                </div>
+
+                <p class="footer-quote">"Aunque lejos estemos, nunca nos olvidaremos"</p>
+                <div class="promo-name">PROMO ALENNO '26</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="click-hint" id="hint-msg">TOCA EL SOBRE PARA ABRIR</div>
+
+    <script>
+        function openInvite() {
+            const env = document.querySelector('.envelope-container');
+            const title = document.getElementById('title-text');
+            const hint = document.getElementById('hint-msg');
+            
+            env.classList.toggle('is-open');
+            
+            if(env.classList.contains('is-open')) {
+                title.style.opacity = '0';
+                hint.style.opacity = '0';
+            } else {
+                title.style.opacity = '1';
+                hint.style.opacity = '1';
+            }
+        }
+
+        function spawnHeart() {
+            const h = document.createElement('div');
+            h.classList.add('heart-particle');
+            h.innerHTML = '❤';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.getElementById('hearts-layer').appendChild(h);
+            setTimeout(() => h.remove(), 5000);
+        }
+        setInterval(spawnHeart, 400);
+    </script>
+</body>
+</html>
